@@ -64,6 +64,39 @@ All data is **synthetic**, generated with Python.
 
 ---
 
+## 📐 Data Generation Logic
+
+The synthetic data in this project follows realistic banking assumptions to
+simulate customer behavior, card usage, and credit dynamics.
+
+### Customers
+- Initial base of ~500k customers with monthly growth
+- Monthly churn modeled with higher probability in early tenure (cohort effect)
+- Customers can exist without cards
+
+### Cards
+- ~65% of customers own at least one card
+- Average of 1.3 cards per customer (Poisson distribution)
+- Card limits follow a lognormal distribution
+- Limits may increase or decrease over time, with a positive growth bias
+- Cards can change status over time (active, blocked, canceled)
+
+### Transactions
+- Transactions occur only for active cards
+- Monthly purchases per card follow a Poisson distribution
+- Purchase values follow a lognormal distribution
+- Installments per purchase (IPP) reflect realistic consumer behavior
+
+### Time Modeling
+- Monthly snapshots for customers and cards (24 months)
+- Transaction data stored at event level
+- No artificial Cartesian expansion (e.g. zero-transaction rows)
+
+These assumptions were designed to balance realism, analytical value, and
+performance in BI tools such as Power BI.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Python** – synthetic data generation
